@@ -1,0 +1,133 @@
+
+kubectl api-resources
+This command tells about the supported API resources on the server along with API version, kind of resources etc.
+
+kubectl api-versions
+This command tells about the supported API versions in the form of "group/version".
+
+kubectl cluster-info
+
+kubectl explain pod
+
+kubectl pod.spec
+
+kubectl get all
+Command to get all info on all resources like service, deployments, replica-sets and pods in a single command
+
+kubectl get <resource> -o wide
+Flag ""-o wide" will show extra information of the resource like IP address etc.
+Ex. kubectl get all -o wide | kubectl get pods -o wide
+
+kubectl get <resource1>,<resource2>,...
+
+--------------------Pods--------------------------
+
+kubectl get pods
+Shows currently running pods
+
+kubectl describe pods
+Shows details about all pods
+
+kubectl describe pod <pod-name>
+Shows details of a specific pod
+Ex. kubectl describe pod cmd-nginx-57bb5f6747-64xzf
+
+kubectl get <resource> -o yaml > <yaml_file_name>
+Command to output the resource to a yaml file in yaml as output format.
+Ex. kubectl get deployments.apps -o yaml > deployments.yaml
+
+kubectl get <resource> <resource-name> -o yaml
+Command to show the YAML specification of the resource as it is running in the cluster database.
+Ex. kubectl get pods cmd-nginx-57bb5f6747-64xzf -o yaml
+
+kubectl delete pods <pod-name>
+Command to delete the pod
+Ex. kubectl delete pod cmd-nginx-57bb5f6747-64xzf
+
+------------------Deployments---------------------
+
+kubectl create -f <deployment-yaml-file>
+Command to create deployment or naked pod from yaml file as per the deployment attribute provided in yaml file.
+
+kubectl get deployment --show-labels
+Command to show all deployments with their labels configured in yaml file or provided during creation of deployments.
+
+kubectl get all --selector <label>
+Command to show all resources specific to a selector when specific label is provided. This will include deployments, replica sets or pods.
+Ex. kubectl get all --selector app=redis
+
+--------------------Namespaces----------------------
+
+kubectl create ns <namespace>
+Command will create a new namespace
+
+kubectl get <resource> --all-namespaces
+Command to show resources in all namespaces. -A can also be used in place of --all-namespaces
+Ex. kubectl get pods --all-namespaces | kubectl get pods -A
+
+kubectl get <resource> -n <namespace>
+Command to show resource in a specific namespace
+Ex. kubectl get pods -n ashishbharg
+
+kubectl config get
+The context consists of the clustername and namespace that the current user connects to. Context is set in the user settings.
+This command will show the current context. If multiple clusters are available to a kubernetes client, switching context is relevant.
+If multiple namespaces exist within a cluster, switching namespace is relevant.
+
+----------------Scalability---------------------------
+
+kubectl get replicaset
+Command to get details of replicaset.
+
+kubectl replace -f <filename>
+After modifying the replica number in file, in order to update the existing resource, in this case replicaset, run this command.
+
+kubectl scale --replicas=<count> <resource> <resource-name>
+This command will scale up or scale down for the kind of resource (pod/deployment) with specific name given.
+Ex. kubectl scale --replicas=3 deployment cmd-nginx
+
+kubectl edit replicaset <replicaset-name>
+This command will open a vim editor
+
+kubectl edit <resource> <resource-name>
+This command will open the editor to edit the resource.
+Ex. kubectl edit deployment cmd-nginx | kubectl edit configmap cmd-nginx-config
+
+kubectl rollout history deployment
+This command will show the history of all the deployments with their revision numbers.
+
+kubectl rollout history deployment <deployment-name> --revision=<revision_number>
+This command will show the changes that are done to the deployment in the specific revision number
+
+kubectl rollout undo deployment <deployment-name> --to-revision=<revision_number>
+This command will switch the deployment to the specific revision number which is provided.
+
+-------------------Services---------------------------
+
+kubectl expose <service-type> <deployment-name> --port=<port_number> --target-port=<port-forwarding|container-port>
+This command will expose the ports from the service to the container for deployment for given service type.
+Ex. kubectl expose deployment cmd-nginx --port=80 --target-port=8080
+
+kubectl get svc
+Command to get the services with port number details exposed on cluster ip address.
+
+kubectl describe svc <service-name>
+Show details of specific service showing details like selector, labels, IP address, port details etc.
+Ex. kubectl describe svc cmd-nginx
+
+-------------------Persistent Volume---------------------
+
+kubectl get pv
+Command to show the persistent volume created. It will show details like status, capacity, access mode, storage class etc.
+
+kubectl get pvc
+Command to show the persistent volume claim. It will show the relationship with pv is status is bound. It will show details like capacity, access mode, reclaim policy etc.
+
+-------------------Persistent Volume---------------------
+
+kubectl rollout status <deployment-name>
+
+
+kubectl rollout history <deployment-name>
+
+kubectl rollout undo <deployment-name>

@@ -1,0 +1,2 @@
+grep <keyword> -i *
+This command searches for the text in the files
