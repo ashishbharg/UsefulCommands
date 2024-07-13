@@ -44,6 +44,14 @@ kubectl delete pods <pod-name>
 Command to delete the pod
 Ex. kubectl delete pod cmd-nginx-57bb5f6747-64xzf
 
+kubectl get pods --selector <label_key>=<label_value>
+Command to get pods based on labels defined in pods in the form of key value pair
+Ex. kubectl get pods --selector env=dev
+
+kubectl get pods --selector <label_key1>=<label_value1>,<label_key2>=<label_value2>
+Command to get pods based on multiple labels defined in pods in the form of key value pair
+Ex. kubectl get pods --selector env=dev,tier=frontend
+
 ------------------Deployments---------------------
 
 kubectl create -f <deployment-yaml-file>
